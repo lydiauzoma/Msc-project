@@ -1,0 +1,40 @@
+{
+    "Version": "2008-10-17",
+    "Id": "__default_policy_ID",
+    "Statement": [
+      {
+        "Sid": "__default_statement_ID",
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "s3.amazonaws.com"
+        },
+        "Action": "SNS:Publish",
+        "Resource": "arn:aws:sns:us-east-1:533267036435:s3topic",
+        "Condition": {
+          "StringEquals": {
+            "aws:SourceAccount": "533267036435"
+          },
+          "ArnLike": {
+            "aws:SourceArn": "arn:aws:s3:::financial-reports-bucket768"
+          }
+        }
+      },
+      {
+        "Sid": "sqs_statement",
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "sqs.amazonaws.com"
+        },
+        "Action": "sns:Subscribe",
+        "Resource": "arn:aws:sns:us-east-1:533267036435:s3topic",
+        "Condition": {
+          "ArnEquals": {
+            "aws:SourceArn": [
+              "arn:aws:sqs:us-east-1:533267036435:sqsnew",
+              "arn:aws:sqs:us-east-1:533267036435:sqsnew"
+            ]
+          }
+        }
+      }
+    ]
+  }

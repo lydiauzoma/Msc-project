@@ -1,0 +1,72 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "ViewAllLogs",
+			"Effect": "Allow",
+			"Action": [
+				"logs:DescribeLogGroups",
+				"logs:DescribeLogStreams",
+				"logs:GetLogEvents",
+				"logs:FilterLogEvents"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "ReadSecurityConfigurations",
+			"Effect": "Allow",
+			"Action": [
+				"config:Describe*",
+				"iam:Get*",
+				"iam:List*",
+				"kms:Describe*",
+				"kms:Get*",
+				"kms:List*",
+				"s3:GetBucketPolicy",
+				"s3:GetBucketAcl",
+				"s3:GetBucketLogging",
+				"s3:GetEncryptionConfiguration",
+				"ec2:DescribeSecurityGroups",
+				"ec2:DescribeInstanceAttribute",
+				"ec2:DescribeInstances"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "SecurityMonitoring",
+			"Effect": "Allow",
+			"Action": [
+				"securityhub:GetFindings",
+				"securityhub:BatchUpdateFindings",
+				"guardduty:ListDetectors",
+				"guardduty:GetFindings",
+				"inspector:ListAssessmentRuns",
+				"inspector:DescribeFindings"
+			],
+			"Resource": [
+				"arn:aws:securityhub:*:533267036435:hub/default",
+				"arn:aws:guardduty:*:533267036435:detector/*",
+				"arn:aws:inspector:*:533267036435:target/*"
+			]
+		},
+		{
+			"Sid": "ModifyIncidentResponse",
+			"Effect": "Allow",
+			"Action": [
+				"ssm:SendCommand",
+				"ssm:GetAutomationExecution",
+				"ssm:StartAutomationExecution"
+			],
+			"Resource": [
+				"arn:aws:ssm:*:*:document/AWS-RunShellScript",
+				"arn:aws:ssm:*:*:document/AWS-RunPatchBaseline",
+				"arn:aws:ssm:*:*:document/AWS-UpdateSSMAgent"
+			],
+			"Condition": {
+				"StringEquals": {
+					"aws:ResourceTag/Team": "Security"
+				}
+			}
+		}
+	]
+}

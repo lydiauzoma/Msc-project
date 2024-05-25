@@ -1,0 +1,53 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "IAMAdminBasicPermissions",
+			"Effect": "Allow",
+			"Action": [
+				"iam:CreateUser",
+				"iam:DeleteUser",
+				"iam:GetUser",
+				"iam:ListUsers",
+				"iam:UpdateUser",
+				"iam:CreateRole",
+				"iam:DeleteRole",
+				"iam:GetRole",
+				"iam:ListRoles",
+				"iam:UpdateRole",
+				"iam:AttachUserPolicy",
+				"iam:DetachUserPolicy",
+				"iam:AttachRolePolicy",
+				"iam:DetachRolePolicy",
+				"iam:PutRolePolicy",
+				"iam:PutUserPolicy",
+				"iam:GetPolicy",
+				"iam:CreatePolicy",
+				"iam:DeletePolicy",
+				"iam:ListPolicies",
+				"iam:GetPolicyVersion",
+				"iam:CreatePolicyVersion",
+				"iam:DeletePolicyVersion",
+				"iam:SetDefaultPolicyVersion",
+				"iam:ListAttachedUserPolicies",
+				"iam:ListAttachedRolePolicies",
+				"iam:ListPolicyVersions",
+				"iam:ListEntitiesForPolicy",
+				"iam:AddUserToGroup",
+				"iam:RemoveUserFromGroup",
+				"iam:ListGroupPolicies",
+				"iam:ListGroupsForUser"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "RestrictSensitiveOperations",
+			"Effect": "Deny",
+			"Action": [
+				"iam:DeleteAccountPasswordPolicy",
+				"iam:UpdateAccountPasswordPolicy"
+			],
+			"Resource": "*"
+		}
+	]
+}
